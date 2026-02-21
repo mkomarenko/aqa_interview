@@ -1,0 +1,1 @@
+// Implement withTimeout(promise, ms) that rejects after ms.
