@@ -10,6 +10,7 @@ const myPromise = new Promise((resolve, reject) => {
   }, 1000);
 });
 
+// Rewrite the below code using async/await
 myPromise
   .then((value) => {
     console.log(value); // Logs "Operation successful!"
