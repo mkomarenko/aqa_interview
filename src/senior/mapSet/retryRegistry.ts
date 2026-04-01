@@ -16,8 +16,6 @@ class RetryRegistry {
   }
 }
 
-const retryReg = new RetryRegistry();
-
 const retryRegistry = new RetryRegistry();
 
 const testName = retriedTests[0];
