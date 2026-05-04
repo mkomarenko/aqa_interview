@@ -1,42 +1,42 @@
 class Cache<T> {
-    private data: T | null = null;
+  private storage = new Map<string, T>();
 
-    constructor(data: T) {
-        this.data = data;
-    }
+  set(key: string, value: T): void {
+    this.storage.set(key, value);
+  }
 
-    public saveData(data: T) {
-        this.data = data;
-    }
+  get(key: string): T | undefined {
+    return this.storage.get(key);
+  }
 
-    public retriveData(): T | null {
-        return this.data;
-    }
+  has(key: string): boolean {
+    return this.storage.has(key);
+  }
 
-    public clearCache() {
-        this.data = null
-    }
-
+  clear(): void {
+    this.storage.clear();
+  }
 }
 
 type User = {
-    name: string,
-    age: number
-}
+  name: string;
+  age: number;
+};
 
 const userAlice: User = {
-    name: "Alice",
-    age: 22
-}
+  name: "Alice",
+  age: 22,
+};
 
 const userJohn: User = {
-    name: "John",
-    age: 25
-}
+  name: "John",
+  age: 25,
+};
 
-const userCache = new Cache(userAlice)
-userCache.saveData(userJohn);
+const userCache = new Cache<User>();
+userCache.set("alice", userAlice);
+userCache.set("john", userJohn);
 
-const user: User | null = userCache.retriveData()
+const user = userCache.get("alice");
 
-console.log(user)
+console.log(user);
