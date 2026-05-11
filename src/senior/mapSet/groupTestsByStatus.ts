@@ -17,26 +17,35 @@ Need to get:
 
 */
 
+interface Test {
+  name: string;
+  status: string;
+}
+
 const tests = [
   { name: "login", status: "passed" },
   { name: "payment", status: "failed" },
-  { name: "profile", status: "passed" }
-]
+  { name: "profile", status: "passed" },
+];
 
-function groupTestsByStatus(tests: Array<{name: string, status: string}>): Map<string, Array<string>> {
-    let groupedTestsMap: Map<string, Array<string>> = new Map();
+function groupByT<T, K extends keyof T>(items: T[], key: K): Map<T[K], T[]> {
+  let result: Map<T[K], T[]> = new Map();
 
-    for (let test of tests) {
-        let testsArr = groupedTestsMap.get(test.status);
-        if (testsArr) {
-            testsArr.push(test.name)
-        } else {
-            testsArr = new Array();
-            testsArr.push(test.name);
-            groupedTestsMap.set(test.status, testsArr)
-        }
+  for (let item of items) {
+    let groupKey = item[key];
+
+    if (!result.get(groupKey)) {
+      result.set(groupKey, []);
     }
-    return groupedTestsMap;
+    result.get(groupKey)!.push(item);
+  }
+  return result;
 }
 
-console.log(groupTestsByStatus(tests));
+const grouppedTests = groupByT(tests, "status");
+for (let item of grouppedTests) {
+  console.log(item[0]);
+  for (let test of item[1]) {
+    console.log(test);
+  }
+}
