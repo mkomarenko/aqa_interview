@@ -91,7 +91,7 @@ async function main() {
       }`;
       break;
     default:
-      throw new Error(`Wrond type: ${API_CLIENT}`);
+      throw new Error(`Unknown API client type: ${API_CLIENT}`);
   }
 
   const apiClient: ApiClient = apiClientCreator.create();
