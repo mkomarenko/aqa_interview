@@ -109,6 +109,7 @@ class TestExecutor {
 
     while (true) {
       try {
+        console.log(`Trying to run test: Attepmt: ${attempt + 1}`);
         await fn();
         return;
       } catch (error) {
@@ -117,6 +118,7 @@ class TestExecutor {
         }
 
         const timeout = this.timeoutStrategy.getTimeout(attempt);
+        console.log(`Error running test. Waiting for timeout: ${timeout}`);
 
         await this.delay(timeout);
 
@@ -140,7 +142,7 @@ async function main() {
     let attempt = 0;
 
     return function () {
-      if (attempt <= n) {
+      if (attempt <= n - 1) {
         attempt += 1;
         throw new Error("Error during executing test");
       }
@@ -149,7 +151,7 @@ async function main() {
     };
   }
 
-  const f = failNTimes(1);
+  const f = failNTimes(2);
   executor.run(async () => f());
 }
 
