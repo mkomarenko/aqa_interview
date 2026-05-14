@@ -67,13 +67,13 @@ type Post = {
 
 async function main() {
   const restClient = ApiClientFactory.create("rest");
-  const todoItem = await restClient.request<ToDoItem>(
+  const todoItem: ToDoItem = await restClient.request(
     "https://jsonplaceholder.typicode.com/todos/1",
   );
   console.log(todoItem.title);
 
   const graphqlClient = ApiClientFactory.create("graphql");
-  const post = await graphqlClient.request<Post>(
+  const post: Post = await graphqlClient.request(
     "https://graphqlzero.almansi.me/api",
     `query {
   post(id: 1) {
